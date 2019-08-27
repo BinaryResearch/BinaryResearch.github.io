@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:webfeeds="http://webfeeds.org/rss/1.0">
+    <channel>
+        <title>Binary Research</title>
+        <atom:link href="http://localhost:4000/blog/feed.xml" rel="self" type="application/rss+xml"/>
+        <link>http://localhost:4000/blog/</link>
+        <description>binary analysis, reverse engineering, security research, machine learning</description>
+        <pubDate>Tue, 27 Aug 2019 15:56:49 +0800</pubDate>
+        <webfeeds:icon>http://localhost:4000/blog/assets/img/julian-avatar.jpg</webfeeds:icon>
+        
+        <item>
+            
+            <title>Sample post</title>
+            <link>http://localhost:4000/blog/2018/08/27/sample-post.html</link>
+            <guid isPermaLink="false">/blog/2018/08/27/sample-post.html</guid>
+            <description>&lt;h1 id=&quot;this-is-a-sample&quot;&gt;This is a sample&lt;/h1&gt;
+
+&lt;p&gt;Check text width. Sample text:&lt;/p&gt;
+
+&lt;p&gt;example link: &lt;a href=&quot;https://google.com&quot;&gt;google.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Access to the technical reference manual allows us to determine what APROM and ISP are. From Chapter 6: Functional Description, section 4.4.1: Flash Memory Organization, page 191:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The NuMicro NUC200 Series flash memory consists of program memory (APROM), Data Flash, ISP loader program memory (LDROM), and user configuration. Program memory is main memory for user applications and called APROM. User can write their application to APROM and set system to boot from APROM.
+ISP loader program memory is designed for a loader to implement In-System-Programming function. LDROM is independent to APROM and system can also be set to boot from LDROM. Therefore, user can user LDROM to avoid system boot fail when code of APROM was corrupted.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;And from Chapter 6: Functional Description, section 4.4.5: In-System-Programming (ISP), page 199:&lt;/p&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;padding-regular&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;padding-small&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;padding-x-large&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;original&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;padding-medium&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;max-width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;padding-small&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1.5&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;padding-large&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1.6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max-width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;576px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;padding-small&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+            <pubDate>Mon, 27 Aug 2018 00:00:00 +0800</pubDate>
+        </item>
+        
+    </channel>
+</rss>

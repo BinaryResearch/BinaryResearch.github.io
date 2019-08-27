@@ -1,0 +1,15 @@
+[
+   
+      {
+        "title"    : "Sample post",
+        "category" : "",
+        "tags"     : " test, sample",
+        "url"      : "/blog/2018/08/27/sample-post.html",
+        "date"     : "August 27, 2018",
+        "excerpt"  : "This is a sample\n\nCheck text width. Sample text:\n\nexample link: google.com\n\nAccess to the technical reference manual allows us to determine what APROM and ISP are. Fr...",
+        "content"  : "This is a sample\n\nCheck text width. Sample text:\n\nexample link: google.com\n\nAccess to the technical reference manual allows us to determine what APROM and ISP are. From Chapter 6: Functional Description, section 4.4.1: Flash Memory Organization, page 191:\n\n\n  The NuMicro NUC200 Series flash memory consists of program memory (APROM), Data Flash, ISP loader program memory (LDROM), and user configuration. Program memory is main memory for user applications and called APROM. User can write their application to APROM and set system to boot from APROM.\nISP loader program memory is designed for a loader to implement In-System-Programming function. LDROM is independent to APROM and system can also be set to boot from LDROM. Therefore, user can user LDROM to avoid system boot fail when code of APROM was corrupted.\n\n\nAnd from Chapter 6: Functional Description, section 4.4.5: In-System-Programming (ISP), page 199:\n\n%padding-regular {\n  //padding: $padding-small $padding-x-large; // original\n  padding: $padding-medium;\n  @media (max-width: 1000px) {\n    padding: $padding-small * 1.5 $padding-large / 1.6;\n  }\n  @media (max-width: 576px) {\n    padding: $padding-small;\n  }\n}\n\n\n"
+      } 
+   
+   
+   
+]
