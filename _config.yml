@@ -1,5 +1,5 @@
 # SITE CONFIGURATION
-baseurl: "/blog"
+baseurl: ""
 url: "https://binaryresearch.github.io"
 title: Binary Research # site's title
 description: "binary analysis, reverse engineering, security research, machine learning" # used by search engines
