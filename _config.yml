@@ -15,13 +15,16 @@ defaults:
 theme_settings:
   # Meta
   avatar: assets/img/julian-avatar.jpg
-  color_image: /assets/img/juhani-jokinen-1.jpg # In post when you set color
-  favicon: assets/favicon.ico
+  color_image: /assets/img/future-city-night-art.jpg # In post when you set color
+  favicon: assets/img/julian-avatar.jpg
 
   # Header and footer text
   header_text: Delving Deeper into the Mysteries of the Machine
   header_feature_image: assets/img/juhani-jokinen-1.jpg
-  footer_text: made by julian
+  footer_text: content created by julian
+
+  # Blog
+  excerpt: true # Or "truncate" (first 250 characters), "false" to disable
 
   # Icons
   rss: true  # Make sure you created a feed.xml with feed.xml layout
@@ -32,18 +35,18 @@ theme_settings:
   facebook:
   flickr:
   gitlab:
-  github: "binaryresearch"
-  google_plus:
+  github: "BinaryResearch"
   instagram:
   keybase:
   linkedin:  # Full URL
   pinterest:
   reddit:
   soundcloud:
-  stack_exchange:  "https://reverseengineering.stackexchange.com/users/18317/julian?tab=profile" # Full URL
+  stack_overflow:
+  stack_exchange:  # Full URL
   steam:
   tumblr:
-  twitter: # "_SYS_V"
+  twitter: _SYS_V # "twitter username"
   vimeo:
   wordpress:
   youtube:
@@ -56,8 +59,8 @@ theme_settings:
     pinterest:
     pocket:
     reddit: true
-    linkedin: true
-    wordpress: true
+    linkedin:
+    wordpress:
     email: true
 
   # Scripts / Features 
@@ -89,25 +92,12 @@ theme_settings:
 paginate: 10
 paginate_path: "blog/page:num"
 
-# EXCERPTS
-//excerpt_separator: <!--more-->
-
 # AUTHORS
 authors:
   julian: # author-id
     name: julian
-    avatar: "assets/img/avatars/julian_avatar.jpg"
-    url: "https://github.com/binaryresearch"
-#  sylhare:
-#    name: Sylhare
-#    avatar: "assets/img/avatars/sylhare_avatar.png"
-#    url: "https://github.com/sylhare"
-
-# PORTFOLIO
-collections:
-  portfolio:
-    output: true
-    permalink: /:collection/:name
+    avatar: "assets/img/avatars/julian-avatar.jpg"
+    url: "https://github.com/BinaryResearch"
 
 # BUILD SETTINGS
 markdown: kramdown

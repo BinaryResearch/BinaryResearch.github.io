@@ -2,7 +2,7 @@
 layout: page
 title: Posts
 permalink: /Posts/
-feature-img: "assets/img/pexels/circuit.jpeg"
+feature-img: "assets/img/juhani-jokinen-1.jpg"
 ---
 
 Links to all posts.
@@ -14,3 +14,4 @@ Links to all posts.
     </li>
   {% endfor %}
 </ul>
+

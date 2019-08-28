@@ -1,45 +1,44 @@
 // Typography
-$font-family-main: 'Source Sans Pro', Helvetica, Arial, sans-serif; // original
-//$font-family-main: 'Roboto Condensed', Helvetica, Arial, sans-serif;
-$font-family-headings: 'Source Sans Pro', Helvetica, Arial, sans-serif;//original
-//$font-family-headings: 'Roboto Condensed', Helvetica, Arial, sans-serif;
+$font-family-main: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+$font-family-headings: 'Source Sans Pro', Helvetica, Arial, sans-serif;
 $font-family-logo: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-//$font-size: 1.25em; // original
+//$font-size: 1.25em;  // original
 $font-size: 1.025em;
 
 // Padding
 $padding-x-large: 23%;
-$padding-large: 20%;
-$padding-medium: 15%; // original is 6%
-$padding-small: 8%;  // original is 4%
+//$padding-large: 9%; //original
+$padding-large: 15%;
+$padding-medium: 6%;
+$padding-small: 4%;
 $padding-x-small: 3%;
 $title-padding: 0.5em;
 
+// Mobile display
+$xl-break: 2000px;
+$l-break: 1400px;
+$m-break: 1000px;
+$break: 768px;
+$sm-break: 576px;
+$x-sm-break: 300px;
+
 // Brand colours
-//$theme-color: #337ab7; // original
-$theme-color: #7d007d;
-$brand-color: #fff; //original
-//$brand-color: #9c9c9c;
-$background-color: #fff; // original
-//$background-color: #f0edf0;
-//$background-color: #666666;
+//$theme-color: #337ab7; //original
+$theme-color: #7d00d7;
+$brand-color: #fff;
+$background-color: #fff;
 //$border-color: rgba(0, 0, 0, 0.1); // rgba recommended if using feature images
 $border-color: rgba(0,0,0,0.25);
 
 // Typography colours
 //$text-color: #262626; // original
 $text-color: #000000;
-//$text-color: #ffffff;
 $meta: #595959; //lowest gray for accessible color
 //$link-color: $theme-color; // #1ABC9C;
 $link-color: #0055dd;
-//$selection-color: #D4D4D4; // visible when highlighting text // original
-//$selection-color: #F2D830;
+//$selection-color: #D4D4D4; // visible when highlighting text
 $selection-color: #ffff00;
-//$blockquote-color: #EEF7FA; // $background-color; //original
-//$blockquote-color: #BBE8FA;
-//$blockquote-color: #cbebfa;
-//$blockquote-color: #F0CEE3;
+//$blockquote-color: #EEF7FA; // $background-color;
 $blockquote-color: #fcfccd;
 
 //Search color
@@ -57,10 +56,6 @@ $feature-image-size: cover; // options include "cover", "contain", "auto"
 // Header description box
 $header-desc-background-color: $theme-color;
 $header-desc-text-color: #FFF;
-
-// Mobile display
-$break: 768px;
-$sm-break: 450px;
 
 /*  Syntax highlighting  */
 // Syntax typography

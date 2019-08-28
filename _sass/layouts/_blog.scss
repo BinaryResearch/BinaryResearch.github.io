@@ -1,7 +1,6 @@
 /* --- Header text feature --- */
 .call-out {
-  //@extend %padding-medium;	// original
-  @extend %padding-small;
+  @extend %padding-header;
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -48,7 +47,7 @@
 /* --- Post listing --- */
 .posts {
   .post-teaser {
-    @extend %padding-regular;
+    @extend %padding-post;
     width: 100%;
     margin-bottom: 0;
     display: inline-block;

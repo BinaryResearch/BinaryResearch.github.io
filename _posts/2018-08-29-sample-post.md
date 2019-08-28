@@ -2,8 +2,7 @@
 layout: post
 title: Sample post
 tags: [test, sample]
-hide_title: true
-feature-img: assests/img/future-city-night-art.jpg
+feature-img: assets/img/future-city-night-art.jpg
 author-id: julian
 ---
 
