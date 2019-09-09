@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hooking Internal Functions of ELF Binaries with LD_PRELOAD via Redirection to the PLT
+title: A Technique for Hooking Internal Functions of Dynamically-Linked ELF Binaries
 tags: [hooking, reverse-engineering, instrumentation, debugging, ELF, LD_PRELOAD, redirect-to-PLT, AMD64, x86-64, PIE]
 author-id: julian
 ---
@@ -76,10 +76,9 @@ binary itself is not desirable.
      flexible and writing code to accomplish this appears to be a comapratively 
      slow and error-prone endeavor.
 
-   - However, if we want to analyze the behavior of an internal function (via debug `printf()`
-     statements for exemple) using the redirect-to-PLT trick, we can recreate the
+   - However, if we want to analyze the behavior of an internal function using the redirect-to-PLT trick, we can recreate the
      logic of the function in a shared library, add the desired modifications, patch
-     the code to call that library instead of the chosen internal function, 
+     the code to call that new shared library function instead of the chosen internal function, 
      and then inject this shared library with `LD_PRELOAD`. The instrumented 
      code in this shared library will then be executed instead of the original 
      internal function code.
