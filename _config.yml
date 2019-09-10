@@ -15,12 +15,12 @@ defaults:
 theme_settings:
   # Meta
   avatar: assets/img/julian-avatar.jpg
-  color_image: /assets/img/future-city-night-art.jpg # In post when you set color
+  color_image: /assets/img/cyberpunk1.jpg # In post when you set color
   favicon: assets/img/julian-avatar.jpg
 
   # Header and footer text
-  header_text: Delving Deeper into the Mysteries of the Machine
-  header_feature_image: assets/img/juhani-jokinen-1.jpg
+  header_text: Looking Deeper
+  header_feature_image: assets/img/cyberpunk1.jpg
   footer_text: content created by julian
 
   # Blog
