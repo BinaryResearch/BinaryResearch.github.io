@@ -94,31 +94,9 @@ functions* specifically; no changes are made to the GOT or the PLT.
 
 # Overriding an Internal Function in a Toy Program
 
-For the following program (`example_program1`), we want to hook the 
-`detour_me()` function:
+For the following program (example_program1), we want to hook the detour_me() function:
 
-```c
-/*
-detour the detour_me(void) function via redirect-to-PLT to print
-a string of our choosing. For now, let us choose "I <3 LD_PRELOAD"
-*/
-
-#include <stdio.h>
-
-void detour_me(void) {
-    printf("Can ");
-    printf("you ");
-    printf("detour ");
-    printf("this ");
-    printf("function?\n");
-}
-
-int main(void) {
-    printf("In main(), before detour_me()\n");
-    detour_me();
-    printf("In main(), after detour_me()\n");
-}
-```
+<script src="https://gist.github.com/BinaryResearch/10b567cb594d49bc5c897434fcb3bc9b.js"></script>
 
 The approach is as follows:
  1. Select a suitable shared library function to override
