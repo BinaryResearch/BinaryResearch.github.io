@@ -19,7 +19,7 @@ theme_settings:
   favicon: assets/img/julian-avatar.jpg
 
   # Header and footer text
-  header_text: Looking Deeper
+  header_text: Into the Machine
   header_feature_image: assets/img/cyberpunk1.jpg
   footer_text: content created by julian
 

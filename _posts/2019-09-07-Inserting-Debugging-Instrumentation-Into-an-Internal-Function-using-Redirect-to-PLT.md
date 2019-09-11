@@ -8,12 +8,12 @@ author-id: julian
 In the previous post, it was demonstrated how an internal function in a dynamically-linked 
 ELF executable can be hooked by redirecting execution to the PLT entry of a shared library function and 
 then overriding that shared library function via `LD_PRELOAD`. This technique 
-was used to completely replace the logic of an internal function of a 
-contrived toy program. This time, rather than substituting the logic of a hooked internal function in its entirety
+was used to completely replace the logic of an internal function of a toy program. 
+This time, rather than substituting the logic of a hooked internal function in its entirety
 in order to override the function's behavior, it will be demonstrated how debugging instrumentation can be
 inserted into a hooked internal function to analyze and log its runtime behavior.
-The internal function responsible for encoding a key via XOR operations in a crackme program from [crackmes.one](https://crackmes.one)
-(instead of a contrived example binary) will be analyzed. 
+The internal function responsible for encoding a key via XOR operations in a crackme program
+will be analyzed. 
 
 ### Overview
  
