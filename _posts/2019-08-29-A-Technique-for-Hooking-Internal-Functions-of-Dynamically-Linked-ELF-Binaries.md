@@ -63,11 +63,11 @@ functions or if we want to override an internal function, but adding code to the
 binary itself is not desirable.
    - code may be added to a binary by adding a new segment or via segment padding 
      infection techniques [3][4], but this is quite cumbersome for a few reasons:
-      1. adding code this way usually requires re-engineering the binary file
+      - adding code this way usually requires re-engineering the binary file
          to some extent, extending or adding segments, changing flags, updating 
          information in the ELF header and the program load table to reflect 
          changes made to the binary image and so forth.
-      2. calling shared library functions in code added to the binary is rather
+      - calling shared library functions in code added to the binary is rather
 	 complex, thus system calls are typically made directly. This often 
          necessitates writing code in assembly rather than C or using both 
          together.
@@ -94,11 +94,20 @@ functions* specifically; no changes are made to the GOT or the PLT.
 
 # Overriding an Internal Function in a Toy Program
 
-For the following program (example_program1), we want to hook the detour_me() function:
+For the following program (`example_program1`), we want to hook the `detour_me()` function:
 
 <script src="https://gist.github.com/BinaryResearch/10b567cb594d49bc5c897434fcb3bc9b.js"></script>
 
-The approach is as follows:
+This produces the following ouput:
+
+```shell
+$ ./example_program_1 
+In main(), before detour_me()
+Can you detour this function?
+In main(), after detour_me()
+```
+
+The approach to hooking this function is as follows:
  1. Select a suitable shared library function to override
  2. Patch the `CALL` to `detour_me()` to point to the PLT entry of the chosen shared
     library function
