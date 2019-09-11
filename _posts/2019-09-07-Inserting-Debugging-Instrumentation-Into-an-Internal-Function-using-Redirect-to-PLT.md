@@ -284,9 +284,9 @@ We now know what is required to design the hook:
  3. Place a pointer to the encoded string in RAX as the return value
 
 The extended asm[2] functionality provided by GCC means we can read from and write to registers directly in C (what a time to be alive),
-meaning that there is no need for writing any assembly in the program. Besides reading from and writing to the approprite registers and
+meaning that there is no need for writing any assembly in the program. Besides reading from and writing to the appropriate registers and
 re-implementing the logic responsible for encoding the key, `printf()` statements will be added to the code so that we can see the input
-string, how exactly the string is encoded to create the key and what the final key is:
+string, how exactly the string is encoded to create the key, and what the final key is:
 
 <script src="https://gist.github.com/BinaryResearch/f8cdaa7f1bca1136e53a34d28f7a12cc.js"></script>
 
