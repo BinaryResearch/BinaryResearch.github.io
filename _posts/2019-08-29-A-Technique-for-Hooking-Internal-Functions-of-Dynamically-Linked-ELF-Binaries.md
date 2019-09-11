@@ -38,12 +38,12 @@ When a function in the `.text` section is called, the instruction pointer jumps
 to the address of the first instruction of that function. To hook such a function,
 the instruction pointer can be redirected to jump to the entry in the
 Procedure Linkage Table (PLT) of a shared library function which will be called
-instead. This shared library function can then be overridden via `LD_PRELOAD` to
-inject a custom shared library function which contains the code to be executed 
-in place of the hooked internal function. Crucially, even though this code is 
-called from within a shared library that is used elsewhere in the program and called under different
-conditions from the hooked internal function, it is possible to control when this 
-code executes.
+instead. This shared library function can then be overridden via `LD_PRELOAD` by
+injecting custom code to be executed 
+in place of the hooked internal function. Though the overridden shared library function 
+may be called elsewhere in the program and called under different
+conditions from the hooked internal function, it is possible to control when the code
+meant to override the functionality of the hooked internal function executes.
 
 Put simply, this technique is essentially an extension of the `LD_PRELOAD` 
 technique such that it can be used to override internal functions as well,
