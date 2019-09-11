@@ -280,8 +280,8 @@ the return value.
 We now know what is required to design the hook:
 
  1. Read 3 arguments from CPU registers RDI, RSI and RDX [1]
- 2. Reproduce the code of the hooked internal function encoding the string
- 3. Place the encoded string in RAX
+ 2. Reproduce the algorithm of the hooked internal function encoding the string
+ 3. Place a pointer to the encoded string in RAX as the return value
 
 The extended asm[2] functionality provided by GCC means we can read from and write to registers directly in C (what a time to be alive),
 meaning that there is no need for writing any assembly in the program. Besides reading from and writing to the approprite registers and
