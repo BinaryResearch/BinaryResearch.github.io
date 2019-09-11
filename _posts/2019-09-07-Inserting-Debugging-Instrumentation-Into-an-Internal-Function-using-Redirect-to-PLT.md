@@ -202,8 +202,8 @@ Here is an outline of the hooking procedure:
 In this case, the shared library function chosen to be overridden is `__stack_chk_fail()`. This particular shared library function
 is well suited for being overridden by a custom function via `LD_PRELOAD` for a few reasons:
 
- - It takes no arguments and does not return. This is an extremely simple function with a simple interface,
-   making it straightforward to manipulate.
+ - It takes no arguments and does not return. This is an [simple function](https://code.woboq.org/userspace/glibc/debug/stack_chk_fail.c.html) 
+   with a simple interface, making it straightforward to manipulate.
  - This function is called only to terminate the program if the guard variable in 
    the stack frame of a function (the so-called "stack-cookie") is overwritten.
    Since we are not writing buffer-overflow based exploits and no stack-smashing occurs at program runtime, this function will never be called.
