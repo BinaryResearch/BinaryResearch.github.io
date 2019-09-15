@@ -323,7 +323,7 @@ The ELF header is clearly malformed. At least we can see the entry point is at o
 
 ### The Source Code
 
-<script src="https://gist.github.com/netspooky/dd750e7ced85fb1861780a90be71053d.js"></script>
+<script src="https://gist.github.com/netspooky/dd750e7ced85fb1861780a90be71053d#file-bye-asm.js"></script>
 
 The bytes that the instructions are composed of are not contiguous - rather than a block of code, some code resides at the beginning and the end of the
 ELF header with data and `00` bytes in between; in addition to accounting for the output produced by `readelf` above, this may pose a challenge for correct 
