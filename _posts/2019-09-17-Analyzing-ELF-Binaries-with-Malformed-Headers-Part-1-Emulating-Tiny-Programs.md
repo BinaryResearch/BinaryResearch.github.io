@@ -459,7 +459,7 @@ $ ./emulate_bye.py
 
 Very nice. Not only do we see the runtime behavior of the program without executing it, but we get essentially correct disassembly as well. 
 According to the source code and the attempt at disassembly using Capstone, the `reboot` syscall is made twice, but obviously only the first one would
-ever be executed, meaning the instructions following the first `reboot` syscall are unreachable. Perhaps emulation is also good for analysing obfuscated
+ever be executed, meaning the instructions following the first `reboot` syscall are unreachable. Perhaps emulation is also useful for analysing obfuscated
 assembly code? ;)
 
 # Conclusion
