@@ -40,7 +40,8 @@ all ELF header fields are needed for loading and executing the program and can t
 On the one hand, even though their purpose is not to complicate
 analysis, these programs serve to highlight the limitations of many common tools designed to work with the ELF format. On the other hand, since these minimalist binaries
 typically contain such little code, using fully-featured debuggers and such would actually be overkill; one may have a good laugh about how NSA's Ghidra cannot 
-properly load their tiny ELF file, but attempting to do this is akin to trying to shoot down a fruitfly with a railgun - heavyweight frameworks packaged with debuggers and/or 
+properly load their tiny ELF file, but attempting use such a tool to analyze an extremely minimalist binary is akin to trying to shoot down a fruitfly with a railgun - heavyweight 
+frameworks packaged with disassemblers + debuggers and/or 
 decompilers are unsuitable and unecessary for analyzing the runtime behavior of executables literally 45 or 62 bytes in size. If there are 10 bytes of code in a program,
 does it make sense to try to load it into a decompiler? Probably not. A simple script emulating the execution of these programs may be a more appropriate approach.
 
