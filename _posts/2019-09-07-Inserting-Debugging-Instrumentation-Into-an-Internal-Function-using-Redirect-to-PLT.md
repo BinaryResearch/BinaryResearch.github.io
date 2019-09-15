@@ -31,6 +31,7 @@ Prerequisites:
 
 Tools:
 
+ - Keystone Engine
  - Ghidra
  - GCC
 
