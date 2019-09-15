@@ -285,15 +285,7 @@ crimeware, etc. and in this case @Netspooky's `bye` binary which executes the `r
 
 It is clearly advantageous to be able analyze the runtime behavior of such a program without having to actually load it into memory and execute.
 The script used to analyze `tiny-i386` can be modified to support emulation of x86-64 code and of the `reboot` syscall. The same approach will be followed
-as before:
-
-First, retrieve the start and end points for emulation from a hex dump. Then, when writing the script to emulate the program:
- - read the file and map it to memory
- - set up the stack
- - initialize the emulation engine
- - implement a hook that allows each executed instruction to be traced and logged to STDOUT
-   - a Capstone disassembly engine object will be passed to this hook so that each instruction can be disassembled and its disassembly logged as well
- - implement a hook that handles system calls
+as before, with minor adjustments.
 
 Before we begin, however, we can first try to read the file's ELF header with `readelf` and then disassembling its code with Capstone to get a sense of
 what to expect from the emulation.
