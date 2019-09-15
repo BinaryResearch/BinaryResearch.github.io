@@ -213,15 +213,15 @@ Summary from "A Whirlwind Tutorial on Creating Really Teensy ELF Executables for
    correctly. Everything else in the ELF header is about the section header table, which doesn't come into play with executable files.
 
 As stated previously, aside from the fields read by the kernel to load the program, the rest may contain arbitrary values. Naturally, if parsers rely on
-the presence of appropriate values in fields not essential to loading to work correctly, they will fail to read non-standard headers correctly.
+the presence of appropriate values in fields not essential to loading in order to function properly, they will fail to read non-standard headers correctly.
 
 ### Emulation
 
 Given that the program contains only 7 bytes of instructions and has a malformed header, emulation is a good alternative to heavyweight tools like radare2, IDA, 
 Ghidra, etc. for analyzing/tracing/logging the runtime behavior of this kind of program. The program's code can be emulated via a small python script that utlizes
 the [Unicorn Engine](http://www.unicorn-engine.org/) (at time of writing, the [Qiling emulation framework](https://github.com/qilingframework/qiling) is still in
-alpha and the code is not available). That the header is malformed is totally irrelevant from the perspective of emulation, as the only information needed to emulate
-the binary is its architecture and the file offsets at which to begin emulation and end emulation; this information can be retrieved from a hex dump of the binary 
+alpha and the code is not available). That the header is malformed is irrelevant from the perspective of emulation, as the only information needed to emulate
+the binary is its architecture and the file offsets at which to begin and end emulation; this information can be retrieved from a hex dump of the binary 
 without needing to parse the ELF header.
 
 The approach to emulating the `tiny-i386` binary is as follows:
