@@ -287,8 +287,8 @@ It is clearly advantageous to be able analyze the runtime behavior of such a pro
 The script used to analyze `tiny-i386` can be modified to support emulation of x86-64 code and of the `reboot` syscall. The same approach will be followed
 as before, with minor adjustments.
 
-Before we begin, however, we can first try to read the file's ELF header with `readelf` and then disassembling its code with Capstone to get a sense of
-what to expect from the emulation.
+Before we begin, however, we can first try to read the file's ELF header with `readelf` and then disassemble its code with Capstone to get a sense of
+what to expect from emulation.
 
 ### Parsing the Header with readelf
 
