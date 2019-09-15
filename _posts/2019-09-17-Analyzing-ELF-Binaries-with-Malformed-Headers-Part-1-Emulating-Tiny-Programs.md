@@ -331,8 +331,8 @@ disassembly.
 
 ### Disassembly with Capstone and Radare2
 
-According to the comments in the [source
-code of the file](https://gist.github.com/netspooky/dd750e7ced85fb1861780a90be71053d#file-bye-asm), 
+According to the comments in the source
+code of the file, 
 the last instruction is located at the last byte of the file - offset `0x53`. Using this information, a simple script to disassemble the code
 with Capstone can be written:
 
@@ -378,7 +378,7 @@ This is clearly incorrect. Based on this disassembly, there are no syscalls bein
 As it turns out, Capstone is a *linear sweep*-based disassembler (as opposed to *recursive traversal*-based, like radare2)[1][2]. This means that beginning at
 the start address, it disassembles all bytes as code until the end address, ignoring flow-of-control. In the disassembly above, quite a bit of null bytes and
 data are being decoded as instructions. We can compensate for this manually somewhat by ignoring the bytes between the `jmp` at offset `0xa` and the `cya` label
-at offset `0x3c` (see the [source code](https://github.com/netspooky/golfclub/blob/master/linux/bye.asm), lines 11 and 27 in particular):
+at offset `0x3c` (see the source code, lines 11 and 27 in particular):
 
 <script src="https://gist.github.com/BinaryResearch/7ba21aa05deddf507fa8a6fb7edf41c3.js"></script>
 
