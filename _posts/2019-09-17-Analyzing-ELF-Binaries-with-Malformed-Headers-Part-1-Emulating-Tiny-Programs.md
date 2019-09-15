@@ -441,7 +441,7 @@ that is triggered when the `reboot` syscall is made, allowing us to see the argu
 
 <script src="https://gist.github.com/BinaryResearch/539ba8a73d79eb211503c7e87ae43242.js"></script>
 
-Emulation execution trace:
+Emulated execution trace:
 ```shell
 $ ./emulate_bye.py 
 >>> Tracing instruction at 0x100004, instruction size = 0x5, disassembly:	mov	edx, 0x4321fedc
