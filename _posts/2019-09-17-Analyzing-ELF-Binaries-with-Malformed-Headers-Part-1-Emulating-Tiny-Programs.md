@@ -9,7 +9,8 @@ A simple but often effective method for complicating or preventing analysis of a
 is mangling, damaging or otherwise manipulating values in the ELF header such that the tool parsing the header does so incorrectly, perhaps
 even causing the tool to fail or crash. Common techniques include overlapping the program header(s) with the ELF header and writing 
 garbage values to ELF header fields that are not read by the kernel when loading the binary into memory. In addition to some programs designed for criminal
-purposes (e.g. mumblehard), a few code-golf- and proof-of-concept-type programs have been created that employ these techniques. Examples of such programs include
+purposes (e.g. the "mumblehard" family of malware programs), a few code-golf- and proof-of-concept-type programs have been created that employ these techniques. 
+Examples of such programs include
 Brian Raiter's "teensy" files and @netspooky's "golfclub" programs. In this post, it will be demonstrated how emulation can be used to easily trace the execution
 of these types of binaries.
 
@@ -35,7 +36,7 @@ typical examples of this are `gdb`, `objdump` and the rest of the `libbfd`-based
 information is present and intact.
 
 The minimalist programs that push the limits of the least number of bytes a file can consist of and still execute successfully take advantage of the fact that not
-all ELF header fields are critical execution and can therefore be used to contain code or other non-standard values - their entry point is often *inside* the ELF header. 
+all ELF header fields are needed for loading and executing the program and can therefore be used to contain code or other non-standard values - their entry point is often *inside* the ELF header. 
 On the one hand, even though their purpose is not to complicate
 analysis, these programs serve to highlight the limitations of many common tools designed to work with the ELF format. On the other hand, since these minimalist binaries
 typically contain such little code, using fully-featured debuggers and such would actually be overkill; one may have a good laugh about how NSA's Ghidra cannot 
