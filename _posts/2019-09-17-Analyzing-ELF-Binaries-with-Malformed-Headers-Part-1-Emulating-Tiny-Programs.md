@@ -289,8 +289,8 @@ It is clearly advantageous to be able analyze the runtime behavior of such a pro
 The script used to analyze `tiny-i386` can be modified to support emulation of x86-64 code and of the `reboot` syscall. The same approach will be followed
 as before, with minor adjustments.
 
-Before we begin, however, we can first try to read the file's ELF header with `readelf` and then disassemble its code with Capstone to get a sense of
-what to expect from emulation.
+Before we begin, however, we can first try to read the file's ELF header with `readelf`, take a look at the source code,
+and then disassemble its code with Capstone to get a sense of what to expect from emulation.
 
 ### Parsing the Header with readelf
 
@@ -320,6 +320,14 @@ readelf: Warning: possibly corrupt ELF header - it has a non-zero program header
 ``` 
 
 The ELF header is clearly malformed. At least we can see the entry point is at offset `0x4`. 
+
+### The Source Code
+
+<script src="https://gist.github.com/netspooky/b99cd859ffd93de74898b3eef70cdff2.js"></script>
+
+The bytes that the instructions are composed of are not contiguous - rather than a block of code, some code resides at the beginning and the end of the
+ELF header with data and `00` bytes in between; in addition to accounting for the output produced by `readelf` above, this may pose a challenge for correct 
+disassembly.
 
 ### Disassembly with Capstone and Radare2
 
