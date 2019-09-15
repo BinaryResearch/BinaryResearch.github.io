@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Analyzing ELF Binaries with Malformed Headers Part 1 - Emulating Tiny Programs
-tags: [emulation, unicorn-engine, capstone-engine, disassembly, reverse-engineering, anti-analysis, header-mangling, ELF, AMD64, x86-64]
+tags: [emulation, unicorn-engine, capstone-engine, disassembly, reverse-engineering, anti-analysis, header-mangling, ELF, AMD64, x86, x86-64, Linux]
 author-id: julian
 ---
 
@@ -472,9 +472,9 @@ Warning: Cannot initialize dynamic section
 
 Looks like disassembly is not particularly helpful here. 
 
-# Emulation
+### Emulation
 
-Emulation seems to be our only reasonable option. The program responsible for handling emulation of `bye` includes code
+Emulation seems to be the only reasonable option. The program responsible for handling emulation of `bye` includes code
 that is triggered when the `reboot` syscall is made, allowing us to see the arguments in the registers:
 
 <script src="https://gist.github.com/BinaryResearch/539ba8a73d79eb211503c7e87ae43242.js"></script>
@@ -498,7 +498,7 @@ $ ./emulate_bye.py
 Very nice. Not only do we see the runtime behavior of the program without executing it, but we get essentially correct disassembly as well. 
 According to the source code and the attempt at disassembly using Capstone, the `reboot` syscall is made twice, but obviously only the first one would
 ever be executed, meaning the instructions following the first `reboot` syscall are unreachable. Perhaps emulation is also good for analysing obfuscated
-assembly code? (hint, hint)
+assembly code? ;)
 
 # Conclusion
 
