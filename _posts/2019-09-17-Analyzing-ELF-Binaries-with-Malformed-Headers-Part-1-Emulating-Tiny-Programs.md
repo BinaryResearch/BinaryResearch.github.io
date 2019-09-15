@@ -44,7 +44,7 @@ properly load their tiny ELF file, but attempting to do this is akin to trying t
 decompilers are unsuitable and unecessary for analyzing the runtime behavior of executables literally 45 or 62 bytes in size. If there are 10 bytes of code in a program,
 does it make sense to try to load it into a decompiler? Probably not. A simple script emulating the execution of these programs may be a more appropriate approach.
 
-# tiny-i386: 45 bytes total, 7 bytes of code
+# muppetlabs' tiny-i386: 45 bytes total, 7 bytes of code
 
 This is the "Tiny" program from [A Whirlwind Tutorial on Creating Really Teensy ELF Executables for Linux](http://www.muppetlabs.com/~breadbox/software/tiny/teensy.html).
 This program, as well as the rest of the "Teensy" ELF files can be downloaded from the [muppetlabs site](http://www.muppetlabs.com/~breadbox/software/tiny/).
@@ -270,12 +270,13 @@ $ ./emulate_tiny-i386.py
 
 Nice. No debugger needed.
 
-# bye: 84 bytes total, 23 bytes of code
+# netspooky's bye: 84 bytes total, 23 bytes of code
 
 An advantage of emulation over debugging is that the emulated instructions have no effect on the host system. Even if the program being emulated
 contains code that could potentially damage the system it runs on, it is not being executed, so there is no danger (unless there is some way to 
 escape from the emulator, e.g. [QEMU VM escape](http://www.phrack.org/papers/vm-escape-qemu-case-study.html)). This is useful for analyzing viruses,
-crimeware, etc. and in this case @Netspooky's `bye` binary which executes the `reboot` syscall with the `LINUX_REBOOT_CMD_POWER_OFF` argument:
+crimeware, etc. and in this case [@Netspooky's `bye` binary](https://github.com/netspooky/golfclub/blob/master/linux/bye.asm) which executes the 
+[`reboot` syscall](http://man7.org/linux/man-pages/man2/reboot.2.html) with the `LINUX_REBOOT_CMD_POWER_OFF` argument:
 
 > On a desktop system, this binary will shut down your computer abruptly. There are some potential side effects from a shutdown like this, 
   but personally I haven’t experienced any issues with it. However, on a VPS, this specific syscall proves to be a bit of a problem. Since the 
@@ -368,7 +369,7 @@ This is clearly incorrect. Based on this disassembly, there are no syscalls bein
 As it turns out, Capstone is a *linear sweep*-based disassembler (as opposed to *recursive traversal*-based, like radare2)[1][2]. This means that beginning at
 the start address, it disassembles all bytes as code until the end address, ignoring flow-of-control. In the disassembly above, quite a bit of null bytes and
 data are being decoded as instructions. We can compensate for this manually somewhat by ignoring the bytes between the `jmp` at offset `0xa` and the `cya` label
-at offset `0x3c` (see the source code):
+at offset `0x3c` (see the [source code](https://github.com/netspooky/golfclub/blob/master/linux/bye.asm), lines 11 and 27 in particular):
 
 <script src="https://gist.github.com/BinaryResearch/7ba21aa05deddf507fa8a6fb7edf41c3.js"></script>
 
@@ -411,42 +412,9 @@ Warning: Cannot initialize dynamic section
             0x0000000a      ff             invalid
             0x0000000b      ff             invalid
             0x0000000c      ff             invalid
-            0x0000000d      ff             invalid
-            0x0000000e      ff             invalid
-            0x0000000f      ff             invalid
-            0x00000010      ff             invalid
-            0x00000011      ff             invalid
-            0x00000012      ff             invalid
-            0x00000013      ff             invalid
-            0x00000014      ff             invalid
-            0x00000015      ff             invalid
-            0x00000016      ff             invalid
-            0x00000017      ff             invalid
-            0x00000018      ff             invalid
-            0x00000019      ff             invalid
-            0x0000001a      ff             invalid
-            0x0000001b      ff             invalid
-            0x0000001c      ff             invalid
-            0x0000001d      ff             invalid
-            0x0000001e      ff             invalid
-            0x0000001f      ff             invalid
-            0x00000020      ff             invalid
-            0x00000021      ff             invalid
-            0x00000022      ff             invalid
-            0x00000023      ff             invalid
-            0x00000024      ff             invalid
-            0x00000025      ff             invalid
-            0x00000026      ff             invalid
-            0x00000027      ff             invalid
-            0x00000028      ff             invalid
-            0x00000029      ff             invalid
-            0x0000002a      ff             invalid
-            0x0000002b      ff             invalid
-            0x0000002c      ff             invalid
-            0x0000002d      ff             invalid
-            0x0000002e      ff             invalid
-            0x0000002f      ff             invalid
-            0x00000030      ff             invalid
+                            .
+                            .
+                            .
             0x00000031      ff             invalid
             0x00000032      ff             invalid
             0x00000033      ff             invalid
@@ -454,15 +422,9 @@ Warning: Cannot initialize dynamic section
             0x00000034      ff             invalid
             0x00000035      ff             invalid
             0x00000036      ff             invalid
-            0x00000037      ff             invalid
-            0x00000038      ff             invalid
-            0x00000039      ff             invalid
-            0x0000003a      ff             invalid
-            0x0000003b      ff             invalid
-            0x0000003c      ff             invalid
-            0x0000003d      ff             invalid
-            0x0000003e      ff             invalid
-            0x0000003f      ff             invalid
+                            .
+                            .
+                            .
             0x00000040      ff             invalid
             0x00000041      ff             invalid
             0x00000042      ff             invalid
