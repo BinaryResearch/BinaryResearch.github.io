@@ -2,6 +2,7 @@
 layout: post
 title: A Technique for Hooking Internal Functions of Dynamically-Linked ELF Binaries
 tags: [hooking, reverse-engineering, instrumentation, debugging, ELF, LD_PRELOAD, redirect-to-PLT, AMD64, x86-64, PIE, Linux]
+comments: true
 author-id: julian
 ---
 

@@ -2,6 +2,7 @@
 layout: post
 title: Inserting Debugging Instrumentation into an Internal Function Using Redirect-to-PLT
 tags: [hooking, reverse-engineering, instrumentation, debugging, ELF, LD_PRELOAD, redirect-to-PLT, AMD64, x86-64, PIE, Linux]
+comments: true
 author-id: julian
 ---
 

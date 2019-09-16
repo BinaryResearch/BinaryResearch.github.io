@@ -378,7 +378,7 @@ $ ./disassemble_bye.py
 ```
 
 This is clearly incorrect. What happened?
-As it turns out, Capstone is a *linear sweep*-based disassembler (as opposed to *recursive traversal*-based, like radare2)[1][2]. This means that beginning at
+As it turns out, Capstone is a *linear sweep*-based disassembler (as opposed to *recursive traversal*-based, like radare2)[6][7]. This means that beginning at
 the start address, it disassembles all bytes as code until the end address, ignoring flow-of-control. In the disassembly above, quite a bit of null bytes and
 data are being decoded as instructions. We can compensate for this manually somewhat by ignoring the bytes between the `jmp` at offset `0xa` and the `cya` label
 at offset `0x3c` (see the source code, lines 11 and 27 in particular):
@@ -489,8 +489,8 @@ headers will also be explored so that the code start and end offsets can be retr
 3. [Screwing elf header for fun and profit](https://dustri.org/b/screwing-elf-header-for-fun-and-profit.html)
 4. [Modern Linux Malware Exposed](https://emanuelecozzi.net/docs/recon18_linux_malware.pdf)
 5. [Understanding Linux Malware](https://emanuelecozzi.net/docs/oakland18_cozzi.pdf)
-1. [Disassembly of Executable Code Revisited](https://www2.cs.arizona.edu/~debray/Publications/disasm.pdf) - discusses linear sweep and recursive traversal disassembly algorithms
-2. [On Disassembling Obfuscated Assembly](https://silviocesare.wordpress.com/2007/11/17/on-disassembling-obfuscated-assembly/)
+6. [Disassembly of Executable Code Revisited](https://www2.cs.arizona.edu/~debray/Publications/disasm.pdf) - discusses linear sweep and recursive traversal disassembly algorithms
+7. [On Disassembling Obfuscated Assembly](https://silviocesare.wordpress.com/2007/11/17/on-disassembling-obfuscated-assembly/)
 
 Muppetlabs' Tiny Binaries:
  - [The Teensy Files](http://www.muppetlabs.com/~breadbox/software/tiny/)
