@@ -38,7 +38,7 @@ information is present and intact.
 
 The specially-crafted minimalist ELF programs - those that push the limits of the least number of bytes a file can consist of and still execute successfully -  take advantage of the fact that not
 all ELF header fields are needed for loading and executing the program and can therefore be used to contain code or other non-standard values; as a case in point,
-the entry points of these programs often lies *inside* their ELF header. 
+the entry points of these programs often lie *inside* their ELF header. 
 On the one hand, even though they are not purposely designed to complicate
 analysis, these programs serve to highlight the limitations of many common tools designed to work with the ELF format. On the other hand, since these minimalist binaries
 typically contain such little code, using fully-featured debuggers and other tools of this class for analysis would actually be overkill; 
