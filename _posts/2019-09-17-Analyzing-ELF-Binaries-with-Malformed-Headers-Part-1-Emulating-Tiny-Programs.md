@@ -2,23 +2,24 @@
 layout: post
 title: Analyzing ELF Binaries with Malformed Headers Part 1 - Emulating Tiny Programs
 tags: [emulation, unicorn-engine, capstone-engine, disassembly, reverse-engineering, anti-analysis, header-mangling, ELF, AMD64, x86, x86-64, Linux]
+comments: true
 author-id: julian
 ---
 
 A simple but often effective method for complicating or preventing analysis of an ELF binary by many common tools (`gdb`, `readelf`, `pyelftools`, etc)
 is mangling, damaging or otherwise manipulating values in the ELF header such that the tool parsing the header does so incorrectly, perhaps
-even causing the tool to fail or crash. Common techniques include overlapping the program header(s) with the ELF header and writing 
+even causing the tool to fail or crash. Common techniques include overlapping the ELF header with program header(s) and writing 
 garbage values to ELF header fields that are not read by the kernel when loading the binary into memory. In addition to some programs designed for criminal
 purposes (e.g. the "mumblehard" family of malware programs), a few code-golf- and proof-of-concept-type programs have been created that employ these techniques. 
 Examples of such programs include
-Brian Raiter's "teensy" files and @netspooky's "golfclub" programs. In this post, it will be demonstrated how emulation can be used to easily trace the execution
+Brian Raiter's "teensy" files and @netspooky's "golfclub" programs. In this post, it will be demonstrated how emulation can be used to trace the execution
 of these types of binaries.
 
 ### Overview
 
 The following will be discussed:
  - how header mangling works as an anti-analysis technique
- - how to use the Unicorn Engine to analyze binaries with malformed headers
+ - how to use the Unicorn Engine to analyze minimalist binaries with malformed headers
 
 Tools:
  - Capstone Engine
@@ -26,22 +27,24 @@ Tools:
  - Python3
 
 
-# Header mangling
+# Malformed ELF Headers
 
-This technique has already been covered in depth elsewhere, mainly because criminal software has employed header mangling in the past, so the discussion
+This technique has already been covered in depth elsewhere[1][2][3][4][5], so the discussion
 here will be brief. The main reason mangling the ELF header works to complicate analysis is that even though only a specific subset of the fields in the ELF header are 
 read by the kernel when loading the program into memory, most ELF parsers do not parse the ELF header the way the kernel loader does 
-and thus are prone to malfunction when reading unexpected or garbage values in fields not needed for creating the process image of the binary in memory. The most
+and thus are prone to malfunction when reading unexpected or garbage values in these extraneous (from the perspective of loading) fields. The most
 typical examples of this are `gdb`, `objdump` and the rest of the `libbfd`-based binutils tools, which will not even read an object file unless its section 
 information is present and intact.
 
-The minimalist programs that push the limits of the least number of bytes a file can consist of and still execute successfully take advantage of the fact that not
-all ELF header fields are needed for loading and executing the program and can therefore be used to contain code or other non-standard values - their entry point is often *inside* the ELF header. 
-On the one hand, even though their purpose is not to complicate
+The specially-crafted minimalist ELF programs - those that push the limits of the least number of bytes a file can consist of and still execute successfully -  take advantage of the fact that not
+all ELF header fields are needed for loading and executing the program and can therefore be used to contain code or other non-standard values; as a case in point,
+the entry points of these programs often lies *inside* their ELF header. 
+On the one hand, even though they are not purposely designed to complicate
 analysis, these programs serve to highlight the limitations of many common tools designed to work with the ELF format. On the other hand, since these minimalist binaries
-typically contain such little code, using fully-featured debuggers and such would actually be overkill; one may have a good laugh about how NSA's Ghidra cannot 
+typically contain such little code, using fully-featured debuggers and other tools of this class for analysis would actually be overkill; 
+one may have a good laugh about how NSA's Ghidra cannot 
 properly load their tiny ELF file, but attempting use such a tool to analyze an extremely minimalist binary is akin to trying to shoot down a fruitfly with a railgun - heavyweight 
-frameworks packaged with disassemblers + debuggers and/or 
+frameworks packaged with disassemblers plus debuggers and/or 
 decompilers are unsuitable and unecessary for analyzing the runtime behavior of executables literally 45 or 62 bytes in size. If there are 10 bytes of code in a program,
 does it make sense to try to load it into a decompiler? Probably not. A simple script emulating the execution of these programs may be a more appropriate approach.
 
@@ -127,7 +130,7 @@ Step failed
 [0x00010020]> 
 ```
 
-However, when radare2 is used to parse the binary, some of the field values look really crazy:
+However, when radare2 is used to parse the binary, some of the field values look strange:
 ```shell
 $ r2 -nn tiny-i386 
 [0x00000000]> pf.elf_header @ elf_header
@@ -148,7 +151,7 @@ $ r2 -nn tiny-i386
 [0x00000000]> 
 ```
 
-There do seem to be quite a few odd-looking values mixed together with ones that align with what we are accustomed to seeing. What is happening here?
+There do seem to be quite a few odd-looking values mixed together with ones that appear similar to what we are accustomed to seeing. What is happening here?
 
 ### A Look at the Source Code
 
@@ -193,7 +196,7 @@ A few observations:
     - it is actually more precise to say that since the file is 45 bytes in size but the ELF header of a 32-bit
       binary should be 52 bytes, those fields are simply not there.
 
-As it turns out, the subset of fields that must contain correct values is as follows:
+As it turns out, the subset of fields that must contain correct values in order to be loaded by the kernel consists of the following:
  - The first 4 bytes of *e_ident* which includes:
     - EI_MAG0 - EI_MAG4: `0x7f`, `E`, `L`, `F`
  - *e_type*
@@ -213,8 +216,6 @@ Summary from "A Whirlwind Tutorial on Creating Really Teensy ELF Executables for
    e_phentsize is likewise for validating the size of the program header table entries. This one was unchecked in older kernels, but now it needs to be set 
    correctly. Everything else in the ELF header is about the section header table, which doesn't come into play with executable files.
 
-As stated previously, aside from the fields read by the kernel to load the program, the rest may contain arbitrary values. Naturally, if parsers rely on
-the presence of appropriate values in fields not essential to loading in order to function properly, they will fail to read non-standard headers correctly.
 
 ### Emulation
 
@@ -273,8 +274,9 @@ Nice. No debugger needed.
 
 # netspooky's bye: 84 bytes total, 23 bytes of code
 
-An advantage of emulation over debugging is that the emulated instructions have no effect on the host system. Even if the program being emulated
-contains code that could potentially damage the system it runs on, it is not being executed, so there is no danger (unless there is some way to 
+An advantage of emulation over debugging is that the emulated instructions (should) have no effect on the host system. Even if the program being emulated
+contains code that could potentially damage the system it runs on, its are not actually being executed by the CPU, so emulation poses much less risk than debugging 
+(unless there is some way to
 escape from the emulator, e.g. [QEMU VM escape](http://www.phrack.org/papers/vm-escape-qemu-case-study.html)). This is useful for analyzing viruses,
 crimeware, etc. and in this case [@Netspooky's `bye` binary](https://github.com/netspooky/golfclub/blob/master/linux/bye.asm) which executes the 
 [`reboot` syscall](http://man7.org/linux/man-pages/man2/reboot.2.html) with the `LINUX_REBOOT_CMD_POWER_OFF` argument:
@@ -325,7 +327,8 @@ The ELF header is clearly malformed. At least we can see the entry point is at o
 
 <script src="https://gist.github.com/netspooky/dd750e7ced85fb1861780a90be71053d.js"></script>
 
-The bytes that the instructions are composed of are not contiguous - rather than a block of code, some code resides at the beginning and the end of the
+The bytes that the instructions are composed of are not contiguous - rather than consisting of a single stream of bytes, some code resides at the beginning 
+and the end of the
 ELF header with data and `00` bytes in between; in addition to accounting for the output produced by `readelf` above, this may pose a challenge for correct 
 disassembly.
 
@@ -374,7 +377,7 @@ $ ./disassemble_bye.py
 0x104f:	nop	
 ```
 
-This is clearly incorrect. Based on this disassembly, there are no syscalls being made, when we know for a fact that they are in the source. What happened?
+This is clearly incorrect. What happened?
 As it turns out, Capstone is a *linear sweep*-based disassembler (as opposed to *recursive traversal*-based, like radare2)[1][2]. This means that beginning at
 the start address, it disassembles all bytes as code until the end address, ignoring flow-of-control. In the disassembly above, quite a bit of null bytes and
 data are being decoded as instructions. We can compensate for this manually somewhat by ignoring the bytes between the `jmp` at offset `0xa` and the `cya` label
@@ -445,7 +448,7 @@ Looks like disassembly is not particularly helpful here.
 
 ### Emulation
 
-Emulation seems to be the only reasonable option. The program responsible for handling emulation of `bye` includes code
+Emulation seems to be the most reasonable option. The program responsible for handling emulation of `bye` includes code
 that is triggered when the `reboot` syscall is made, allowing us to see the arguments in the registers:
 
 <script src="https://gist.github.com/BinaryResearch/539ba8a73d79eb211503c7e87ae43242.js"></script>
@@ -473,14 +476,19 @@ assembly code? ;)
 
 # Conclusion
 
-As we can see, emulation is very useful for analyzing programs that can't be properly parsed or disassembled with the ususal tools. However, the difficulty
-of writing the program that performs the emulation via Unicorn scales with the complexity of the program being emulated. An example of this is the necessity
-of implementing support for interrupts and syscalls. In the next post, programs with malformed headers that also make calls to shared library functions will
-be emulated as well. Furthermore, up to this point the start and end addresses of emulation have been manually retrieved; a method of parsing malformed ELF
+As we can see, emulation via Unicorn is a very powerful methdod for analyzing programs that can't be properly parsed or disassembled with the ususal tools. However, the difficulty
+of writing the program that performs the emulation scales with the complexity of the program being emulated. An example of this is the necessity
+of implementing support manually for interrupts and syscalls. In the next post, programs with malformed headers that also make calls to shared library functions will
+be emulated as well. Furthermore, up to this point the start and end addresses of emulation have been manually retrieved; a method of robustly parsing malformed ELF
 headers will also be explored so that the code start and end offsets can be retrieved in an automated fashion.
 
 # Links and References
 
+1. [ELF Crafting: Advanced Anti-analysis techniques for the Linux Platform](https://github.com/radareorg/r2con2019/blob/master/talks/elf_crafting/ELF_Crafting_ulexec.pdf)
+2. [Striking Back GDB and IDA debuggers through malformed ELF executables](https://ioactive.com/striking-back-gdb-and-ida-debuggers-through-malformed-elf-executables/)
+3. [Screwing elf header for fun and profit](https://dustri.org/b/screwing-elf-header-for-fun-and-profit.html)
+4. [Modern Linux Malware Exposed](https://emanuelecozzi.net/docs/recon18_linux_malware.pdf)
+5. [Understanding Linux Malware](https://emanuelecozzi.net/docs/oakland18_cozzi.pdf)
 1. [Disassembly of Executable Code Revisited](https://www2.cs.arizona.edu/~debray/Publications/disasm.pdf) - discusses linear sweep and recursive traversal disassembly algorithms
 2. [On Disassembling Obfuscated Assembly](https://silviocesare.wordpress.com/2007/11/17/on-disassembling-obfuscated-assembly/)
 

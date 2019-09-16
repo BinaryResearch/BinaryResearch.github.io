@@ -43,7 +43,7 @@ theme_settings:
   reddit:
   soundcloud:
   stack_overflow:
-  stack_exchange:  # Full URL
+  stack_exchange: https://reverseengineering.stackexchange.com/users/18317/julian?tab=profile
   steam:
   tumblr:
   twitter: _SYS_V # "twitter username"
@@ -65,7 +65,7 @@ theme_settings:
 
   # Scripts / Features 
   google_analytics: # Tracking ID, e.g. "UA-000000-01"
-  disqus_shortname:
+  disqus_shortname: binaryresearch-github-io
   katex: true # Enable if using math markup
 
   # Localization strings
