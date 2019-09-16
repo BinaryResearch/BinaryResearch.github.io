@@ -152,10 +152,10 @@ $ r2 -nn tiny-i386
 ```
 
 There do seem to be quite a few odd-looking values mixed together with ones that appear similar to what we are accustomed to seeing. What is happening here?
+Examining the source code will help explain some of this output.
 
 ### A Look at the Source Code
 
-Here is the source code:
 ```asm
   ; tiny.asm
   
@@ -194,7 +194,7 @@ A few observations:
     - The implication is that there is executable code inside the header
  - the fields having to do with sections are empty
     - it is actually more precise to say that since the file is 45 bytes in size but the ELF header of a 32-bit
-      binary should be 52 bytes, those fields are simply not there.
+      binary should be 52 bytes in total, those fields are simply not there.
 
 As it turns out, the subset of fields that must contain correct values in order to be loaded by the kernel consists of the following:
  - The first 4 bytes of *e_ident* which includes:
@@ -222,7 +222,7 @@ Summary from "A Whirlwind Tutorial on Creating Really Teensy ELF Executables for
 Given that the program contains only 7 bytes of instructions and has a malformed header, emulation is a good alternative to heavyweight tools like radare2, IDA, 
 Ghidra, etc. for analyzing/tracing/logging the runtime behavior of this kind of program. The program's code can be emulated via a small python script that utlizes
 the [Unicorn Engine](http://www.unicorn-engine.org/) (at time of writing, the [Qiling emulation framework](https://github.com/qilingframework/qiling) is still in
-alpha and the code is not available). That the header is malformed is irrelevant from the perspective of emulation, as the only information needed to emulate
+alpha and the code is not available). For our purposes right now, it does not matter that the ELF header is malformed, as the only information needed to emulate
 the binary is its architecture and the file offsets at which to begin and end emulation; this information can be retrieved from a hex dump of the binary 
 without needing to parse the ELF header.
 
@@ -270,15 +270,15 @@ $ ./emulate_tiny-i386.py
 >>> Emulation Complete.
 ```
 
-Nice. No debugger needed.
+Looks good. No debugger needed.
 
 # netspooky's bye: 84 bytes total, 23 bytes of code
 
 An advantage of emulation over debugging is that the emulated instructions (should) have no effect on the host system. Even if the program being emulated
-contains code that could potentially damage the system it runs on, its are not actually being executed by the CPU, so emulation poses much less risk than debugging 
-(unless there is some way to
+contains code that could potentially damage the system it runs on, its instructions are not actually being executed by the CPU, so emulation poses much less 
+risk than debugging (unless there is some way to
 escape from the emulator, e.g. [QEMU VM escape](http://www.phrack.org/papers/vm-escape-qemu-case-study.html)). This is useful for analyzing viruses,
-crimeware, etc. and in this case [@Netspooky's `bye` binary](https://github.com/netspooky/golfclub/blob/master/linux/bye.asm) which executes the 
+crimeware, etc. and in this particular case [@Netspooky's `bye` binary](https://github.com/netspooky/golfclub/blob/master/linux/bye.asm), which executes the 
 [`reboot` syscall](http://man7.org/linux/man-pages/man2/reboot.2.html) with the `LINUX_REBOOT_CMD_POWER_OFF` argument:
 
 > On a desktop system, this binary will shut down your computer abruptly. There are some potential side effects from a shutdown like this, 
@@ -287,7 +287,7 @@ crimeware, etc. and in this case [@Netspooky's `bye` binary](https://github.com/
   on a VPS isn’t really a thing. By executing a syscall the effectively “shuts off the power” to the operating system, this puts the VM in an unknown state.
   So far, whenever this is run on a VPS, it seemingly wipes out the entire instance.
 
-It is clearly advantageous to be able analyze the runtime behavior of such a program without having to actually load it into memory and execute.
+Here it is clearly advantageous to be able analyze the runtime behavior of such a program without having to actually load it into memory and execute.
 The script used to analyze `tiny-i386` can be modified to support emulation of x86-64 code and of the `reboot` syscall. The same approach will be followed
 as before, with minor adjustments.
 
