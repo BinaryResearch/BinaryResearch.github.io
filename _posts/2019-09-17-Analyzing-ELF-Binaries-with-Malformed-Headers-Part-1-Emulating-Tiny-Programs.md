@@ -287,7 +287,8 @@ crimeware, etc. and in this particular case [@Netspooky's `bye` binary](https://
   on a VPS isn’t really a thing. By executing a syscall the effectively “shuts off the power” to the operating system, this puts the VM in an unknown state.
   So far, whenever this is run on a VPS, it seemingly wipes out the entire instance.
 
-Here it is clearly advantageous to be able analyze the runtime behavior of such a program without having to actually load it into memory and execute.
+Obviously it is advantageous to be able analyze the runtime behavior of such a program without having to actually load it into memory and execute since
+we do not want our machine to be shut down, and in a way that may potentially damage the system at that.
 The script used to analyze `tiny-i386` can be modified to support emulation of x86-64 code and of the `reboot` syscall. The same approach will be followed
 as before, with minor adjustments.
 
@@ -448,8 +449,8 @@ Looks like disassembly is not particularly helpful here.
 
 ### Emulation
 
-Emulation seems to be the most reasonable option. The program responsible for handling emulation of `bye` includes code
-that is triggered when the `reboot` syscall is made, allowing us to see the arguments in the registers:
+Emulation seems to be the most reasonable option. The program responsible for handling emulation of `bye` includes code for handling x86-64 syscalls
+on lines 26 - 41, allowing us to see the arguments in the registers when the syscall is made:
 
 <script src="https://gist.github.com/BinaryResearch/539ba8a73d79eb211503c7e87ae43242.js"></script>
 
