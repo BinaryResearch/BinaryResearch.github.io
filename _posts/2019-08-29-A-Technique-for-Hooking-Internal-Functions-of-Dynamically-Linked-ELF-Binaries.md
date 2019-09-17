@@ -84,12 +84,12 @@ binary itself is not desirable.
      code in this shared library will then be executed instead of the original 
      internal function code.
 
-It should be noted that all the restrictions that apply to shared libraries also apply to this technique. For example, only
+Naturally, all the restrictions that apply to shared libraries also apply to this technique. For example, only
 other shared library functions can be called within a shared library function (as far as I can tell), therefore this technique
 is generally better suited for hooking leaf functions. Also, C++ functions exported from a shared object cannot be imported
 into a C program/shared library function unless the "extern C" is used in the function declaration when that program was compiled,
 so the export/import trick used in [Transforming an ELF executable into a library](https://lief.quarkslab.com/doc/latest/tutorials/08_elf_bin2lib.html)
-won't work, as calling `dlsym` on a function with a mangled symbol name returns NULL (I tried). 
+won't work, as calling `dlsym` on a function with a mangled symbol name returns NULL. 
 
 ### Hooking with redirect-to-PLT vs GOT/PLT hooking
 
