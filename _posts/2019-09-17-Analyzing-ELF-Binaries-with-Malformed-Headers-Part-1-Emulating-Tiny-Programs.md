@@ -479,9 +479,9 @@ assembly code? ;)
 
 As we can see, emulation via Unicorn is a very powerful methdod for analyzing programs that can't be properly parsed or disassembled with the ususal tools. However, the difficulty
 of writing the program that performs the emulation scales with the complexity of the program being emulated. An example of this is the necessity
-of implementing support manually for interrupts and syscalls. In the next post, programs with malformed headers that also make calls to shared library functions will
-be emulated as well. Furthermore, up to this point the start and end addresses of emulation have been manually retrieved; a method of robustly parsing malformed ELF
-headers will also be explored so that the code start and end offsets can be retrieved in an automated fashion.
+of implementing support manually for interrupts and syscalls. In the next post, somewhat larger programs with a greater range of functionality
+will be analyzed. Up to this point the start and end addresses of emulation have been manually retrieved from a dump of the target binary; a method of robustly 
+parsing malformed ELF headers will also be explored so that the code start and end offsets can be retrieved in an automated fashion.
 
 # Links and References
 
