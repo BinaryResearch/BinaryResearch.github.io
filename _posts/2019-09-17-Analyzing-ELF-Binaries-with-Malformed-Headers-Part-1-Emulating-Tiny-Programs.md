@@ -29,7 +29,7 @@ Tools:
 
 # Malformed ELF Headers
 
-This technique has already been covered in depth elsewhere[1][2][3][4][5], so the discussion
+This technique has already been covered in depth elsewhere[1][2][3][4][5][6], so the discussion
 here will be brief. The main reason mangling the ELF header works to complicate analysis is that even though only a specific subset of the fields in the ELF header are 
 read by the kernel when loading the program into memory, most ELF parsers do not parse the ELF header the way the kernel loader does 
 and thus are prone to malfunction when reading unexpected or garbage values in these extraneous (from the perspective of loading) fields. The most
@@ -379,7 +379,7 @@ $ ./disassemble_bye.py
 ```
 
 This is clearly incorrect. What happened?
-As it turns out, Capstone is a *linear sweep*-based disassembler (as opposed to *recursive traversal*-based, like radare2)[6][7]. This means that beginning at
+As it turns out, Capstone is a *linear sweep*-based disassembler (as opposed to *recursive traversal*-based, like radare2)[7][8]. This means that beginning at
 the start address, it disassembles all bytes as code until the end address, ignoring flow-of-control. In the disassembly above, quite a bit of null bytes and
 data are being decoded as instructions. We can compensate for this manually somewhat by ignoring the bytes between the `jmp` at offset `0xa` and the `cya` label
 at offset `0x3c` (see the source code, lines 11 and 27 in particular):
@@ -490,8 +490,9 @@ parsing malformed ELF headers will also be explored so that the code start and e
 3. [Screwing elf header for fun and profit](https://dustri.org/b/screwing-elf-header-for-fun-and-profit.html)
 4. [Modern Linux Malware Exposed](https://emanuelecozzi.net/docs/recon18_linux_malware.pdf)
 5. [Understanding Linux Malware](https://emanuelecozzi.net/docs/oakland18_cozzi.pdf)
-6. [Disassembly of Executable Code Revisited](https://www2.cs.arizona.edu/~debray/Publications/disasm.pdf) - discusses linear sweep and recursive traversal disassembly algorithms
-7. [On Disassembling Obfuscated Assembly](https://silviocesare.wordpress.com/2007/11/17/on-disassembling-obfuscated-assembly/)
+6. [Linux process execution and the useless ELF header fields](http://shell-storm.org/blog/Linux-process-execution-and-the-useless-ELF-header-fields/)
+7. [Disassembly of Executable Code Revisited](https://www2.cs.arizona.edu/~debray/Publications/disasm.pdf) - discusses linear sweep and recursive traversal disassembly algorithms
+8. [On Disassembling Obfuscated Assembly](https://silviocesare.wordpress.com/2007/11/17/on-disassembling-obfuscated-assembly/)
 
 Muppetlabs' Tiny Binaries:
  - [The Teensy Files](http://www.muppetlabs.com/~breadbox/software/tiny/)
