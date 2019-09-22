@@ -8,8 +8,8 @@ author-id: julian
 
 A simple but often effective method for complicating or preventing analysis of an ELF binary by many common tools (`gdb`, `readelf`, `pyelftools`, etc)
 is mangling, damaging or otherwise manipulating values in the ELF header such that the tool parsing the header does so incorrectly, perhaps
-even causing the tool to fail or crash. Common techniques include overlapping the ELF header with program header(s) and writing 
-garbage values to ELF header fields that are not needed for composing the process image of the binary in memory. In addition to some programs designed for criminal
+even causing the tool to fail or crash. Common techniques include overlapping the ELF header with program header table and writing 
+non-standard values to ELF header fields that are not needed for composing the process image of the binary in memory. In addition to some programs designed for criminal
 purposes (e.g. the "mumblehard" family of malware programs), a few code-golf- and proof-of-concept-type programs have been created that employ these techniques. 
 Examples of such programs include
 Brian Raiter's "teensy" files and @netspooky's "golfclub" programs. In this post, it will be demonstrated how emulation can be used to trace the execution
