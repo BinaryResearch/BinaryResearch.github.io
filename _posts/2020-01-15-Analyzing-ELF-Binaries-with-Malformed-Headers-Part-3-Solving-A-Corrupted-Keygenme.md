@@ -56,10 +56,8 @@ and the goal of the analysis is to discover what that input is.
 The classic IOLI challenges[3] are examples of this type of design. 
 However, since the program we are dealing with here is a *keygenme*, rather than a single correct input, there is actually a large set of inputs 
 that will solve the challenge. Therefore, the goal is slightly different - the aim is to understand the logic of the program such that we can devise 
-a method of generating multiple inputs that are part of the set of solutions. In our case, the set of solutions consists of the intersection of 2 subsets:
-
- - the set of strings that are valid usernames
- - the set of strings that are valid passwords  
+a method of generating multiple inputs that are part of the set of solutions. In our case, the set of solutions consists of the intersection of the
+set of strings that are valid usernames with the set of strings that are valid passwords.
 
 With the right constraints applied, angr will compute solutions automatically; our task is to interface angr with the binary such that the necessary constraints
 are discovered.
