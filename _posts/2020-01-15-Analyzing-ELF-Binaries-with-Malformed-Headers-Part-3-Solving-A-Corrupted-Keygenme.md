@@ -51,7 +51,7 @@ you can absolutely use angr to achieve your goals, given that these goals involv
 
 This is exactly the case here.
 
-A common form of crackme program is one is which a specific input to the program (such as a secret password or numeric value) solves the challenge, 
+A common form of crackme program is one in which a specific input to the program (such as a secret password or numeric value) solves the challenge, 
 and the goal of the analysis is to discover what that input is.
 The classic IOLI challenges[3] are examples of this type of design. 
 However, since the program we are dealing with here is a *keygenme*, rather than a single correct input, there is actually a large set of inputs 
@@ -138,8 +138,15 @@ Here is the program producing the above output:
 <script src="https://gist.github.com/BinaryResearch/9a06c85b4b333caf635f7a1e26857f1c.js"></script>
 
 The purpose of this script is to demonstrate the viability of the approach taken here to solving the challenge and represents a realization of the entire sequence
-of steps required to automatically find solutions with angr. An explanation of the various components of this script is given in
-the "Analysis" section.
+of steps required to automatically find solutions with angr. 
+
+An explanation of the various components of this script is given in the "Analysis" section. 
+I will state here though that the most conceptually difficult part of the challenge was determining how to use angr to read a symbolic variable 
+representing the password from inside a symbolic file. This is handled in lines 29 - 35 in the script. The trick is to pass the name of the symbolic file as an 
+argument when creating the initial program state instead of the pathname of the real file, and then insert this symbolic file into the emulated filesystem
+prior to emulation. When angr  
+emulates the program, the symbolic file will be opened instead of the real password file. The symbolic variable representing the variable will then be read and
+eventually have solutions computed for it.
 
 The file containing the password is called "key.txt", as stated in the code comments. The `G00d P422w0rd` and `B4d P422w0RD` messages are written to this same file,
 so this file is checked after the username and password are computed and the keygenme is run with these as inputs to verify that `G00d P422w0rd` has been written.
