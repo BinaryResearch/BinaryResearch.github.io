@@ -142,7 +142,7 @@ An explanation of the various components of this script is given in the "Analysi
 I will state here though that the most conceptually difficult part of the challenge was determining how to use angr to read a symbolic variable 
 representing the password from inside a symbolic file. This is handled in lines 29 - 35 in the script. The trick is to pass the name of the symbolic file as an 
 argument when creating the initial program state instead of the pathname of the real file, and then insert this symbolic file into the emulated filesystem
-prior to emulation. When angr emulates the program, the symbolic file will be opened instead of the real password file. The symbolic variable representing the variable will then be read and
+prior to emulation. When angr emulates the program, the symbolic file will be opened instead of the real password file. The symbolic variable representing the password will then be read and
 eventually have solutions computed for it.
 
 The file containing the password is called "key.txt", as stated in the code comments. The `G00d P422w0rd` and `B4d P422w0RD` messages are written to this same file,
