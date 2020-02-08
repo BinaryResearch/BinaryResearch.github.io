@@ -6,8 +6,8 @@ author-id: julian
 ---
 
 The purpose of this post is to demonstrate how emulation can be used to quickly find solutions to simple keygenme-style programs. 
-It is not always necessary or efficient to rely on just a disassembler or debugger when emulation can be used to assist with the analysis;
-in fact, by using tools like angr and Cutter one can save a significant amount of time when solving challenges like these.
+It is not always necessary or efficient to rely on just a disassembler or debugger when emulation can be used to assist with the analysis -
+by leveraging tools like angr and Cutter one can save a significant amount of time when solving challenges like these.
 Rather than post a write-up seperately for each crackme, the solutions to 5 challenges are posted here together.
 
 
